@@ -1,6 +1,4 @@
-# Import necessary python packages (cv2, keras, numpy)
 import cv2
-
 
 # Write a function that returns coordinates of face in image parameter:
 def find_faces(dnn, dframe, confidence=0.9):
