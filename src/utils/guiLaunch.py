@@ -1,6 +1,5 @@
-
-
 from flask import Flask, render_template
+import webbrowser
 
 app = Flask(__name__)
 
@@ -8,5 +7,6 @@ app = Flask(__name__)
 def index():
     return render_template('index.html')
 
-if __name__ == '__main__':
-    app.run(debug=True)
+def OpenWeb():
+    webbrowser.open('http://127.0.0.1:5000', new=1)
+    app.run(host='127.0.0.1')
