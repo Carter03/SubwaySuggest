@@ -1,6 +1,6 @@
 import keras
 
-class Model:
+class SandwichModel:
     def __init__(self, dataManager):
         self.maps, self.x_train, self.y_train = dataManager.GetData()
         self.y_cat_train = keras.utils.np_utils.to_categorical(self.y_train)
@@ -26,7 +26,7 @@ if __name__ == '__main__':
     import datamanager
     dataManager = datamanager.DataManager()
 
-    model = Model(dataManager)
+    model = SandwichModel(dataManager)
     model.Fit()
 
     print(ids := model.Predict([4, 0], 3))
