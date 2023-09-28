@@ -23,6 +23,9 @@ class DataManager():
 
         self.totalMappings = {**self.sandMappings, **self.ageMappings, **self.genderMappings}   # IDs are in separate sections of modelData, so mappings can be combined
 
+    def GetGroups(self):
+        return self.gender_groups, self.age_groups
+
     def ApplyMappings(self, x):
         if type(x) == list:
             return list(map(self.ApplyMappings, x))
