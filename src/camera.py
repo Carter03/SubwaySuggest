@@ -74,6 +74,7 @@ class Camera:
 
         # Call face-coordinate function on current frame object
         dnn_frame, face_boxes = self.find_faces(self.face_dnn, frame)
+        peopleData = []
 
         if face_boxes:
             # For each face:
@@ -97,8 +98,9 @@ class Camera:
                 # Draw bounding box around face
                 # Write age and gender above bounding box using cv2 functions
                 cv2.putText(dnn_frame, f'{gender}, {age}', (face_box[0], face_box[1] - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 0, 255), 2, cv2.LINE_AA)
-        
-        return dnn_frame
+                peopleData.append((age, gender))
+
+        return dnn_frame, peopleData
             
 
 if __name__ == '__main__':
