@@ -51,3 +51,4 @@ while cv2.waitKey(1) < 0:
 
 camStream.cam.release()
 cv2.destroyAllWindows()
+t1.close()
