@@ -61,7 +61,6 @@ while cv2.waitKey(1) < 0:
                     predictsData.append(subData)
                 
                 htmleditor.ReplaceSubs(predictsData)
-                guiLaunch.Reload()
                 
                 
 
