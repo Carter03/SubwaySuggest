@@ -5,7 +5,7 @@ class SandwichModel:
     def __init__(self):
         dm = datamanager.DataManager()
         self.maps, self.x_train, self.y_train = dm.GetData()
-        self.y_cat_train = keras.utils.np_utils.to_categorical(self.y_train)
+        self.y_cat_train = keras.utils.to_categorical(self.y_train)
         self.model = keras.models.Sequential()
 
     def Fit(self):

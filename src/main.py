@@ -6,6 +6,8 @@ import ast
 import datamanager
 import sandwichDNN
 import camera
+import htmledit
+import random
 from utils import guiLaunch
 
 def ReformData(data):
@@ -23,6 +25,8 @@ model = sandwichDNN.SandwichModel()
 model.Fit()
 
 t1 = threading.Thread(target=guiLaunch.OpenWeb)
+
+htmleditor = htmledit.Editor()
 
 camStream = camera.Camera()
 analysisPeriod = 3.0
@@ -46,9 +50,22 @@ while cv2.waitKey(1) < 0:
             print(freqDataPoints)
             for person in freqDataPoints:
                 reformedData = ReformData(person)
-                print(model.Predict(reformedData, 3))
+                predicts = model.Predict(reformedData, 3)
+                # print(predicts)
+                if random.randint(0,1) == 0: predicts = ['#17 Garlic Roast Beef', '#30 The Beast', '#1 The Philly']
+                else: predicts = ['#1 The Philly', '#33 Teriyaki Blitz', '#2 The Outlaw']
+                print(predicts)
+                predictsData = []
+                for predict in predicts:
+                    subData = htmleditor.DataFromName(predict)
+                    predictsData.append(subData)
+                
+                htmleditor.ReplaceSubs(predictsData)
+                guiLaunch.Reload()
+                
+                
 
 
 camStream.cam.release()
 cv2.destroyAllWindows()
-t1.close()
+# guiLaunch.CloseWeb()
