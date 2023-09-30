@@ -9,6 +9,7 @@ import camera
 import htmledit
 import random
 import guiLaunch
+import deals
 
 def ReformData(data):
     genderGroups, ageGroups = datamanager.DataManager().GetGroups()
@@ -66,7 +67,6 @@ while cv2.waitKey(1) < 0:
                     if not predicts[i] in usedSubs and numAdded < responseNum:
                         usedSubs.append(predicts[i])
                         numAdded += 1
-            print(usedSubs)
             
             predictsData = []
             for sub in usedSubs:
@@ -74,6 +74,12 @@ while cv2.waitKey(1) < 0:
                 predictsData.append(subData)
                 
             htmleditor.ReplaceSubs(predictsData)
+
+            dealsData = deals.GetDeals(len(freqDataPoints))
+            condDeals = random.sample(dealsData, 3)
+
+            htmleditor.ReplaceDeals(condDeals)
+
             guiLaunch.Reload()
                 
                 

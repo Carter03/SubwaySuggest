@@ -27,3 +27,5 @@ def OpenWeb():
 
 def Reload():
     eel.reload()
+
+OpenWeb()

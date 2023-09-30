@@ -23,6 +23,16 @@ class Editor():
             subCost.string = '$' + sub[2]
 
         self.UpdateHTML()
+
+    def ReplaceDeals(self, data): # list[3] of deal string
+        dealData = data.copy()
+
+        for idx, deal in enumerate(dealData):
+            dealTitle = self.soup.find(attrs={'id':f'deal{idx+1}'})
+            dealTitle.string = deal
+
+        self.UpdateHTML()
+            
     
     def UpdateHTML(self):
         with open(self.indexPath, 'w') as html:
