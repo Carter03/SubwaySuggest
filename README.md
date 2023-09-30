@@ -3,6 +3,12 @@
 
 The purpose of this application is to reduce store lines and increase efficiency. This will improve revenue by letting more people order in a shorter amount of time. Furthermore, it will improve customer retention by improving their experiences.
 
+# Goals
+
+-	Accurate sandwich recommendations based on collected data.
+-	Appropriate deal recommendations based on data and group size.	
+-	Customer-friendly display that professionally shows all necessary information.
+-	Visible information, including name, description, price
 
 
 ## Temporary Instructions/Docs
