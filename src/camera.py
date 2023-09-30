@@ -107,7 +107,7 @@ if __name__ == '__main__':
     obj = Camera()
 
     while cv2.waitKey(1) < 0:
-        cv2.imshow('test', obj.CalculateFrame())
+        cv2.imshow('test', obj.CalculateFrame()[0])
     
     obj.cam.release()
     cv2.destroyAllWindows()

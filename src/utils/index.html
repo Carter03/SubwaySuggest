@@ -2,11 +2,19 @@
 
 <html lang="en">
 <head>
-<link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet"/>
-<link href="{{ url_for('static', filename='css/index.css') }}" rel="stylesheet"/>
-<link href="{{ url_for('static', filename='css/404.css') }}" rel="stylesheet"/>
+<link href="css/style.css" rel="stylesheet"/>
+<link href="css/index.css" rel="stylesheet"/>
+<link href="css/404.css" rel="stylesheet"/>
+<script src="/eel.js" type="text/javascript"></script>
+<script>
+  eel.expose(reload);
+  function reload() {
+    console.log("test reload");
+    window.location.reload();
+  }
+</script>
 <title>Subway Suggest</title>
-<meta content="Subway Suggest" property="og:title">
+<meta content="Subway Suggest" property="og:title"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <meta charset="utf-8"/>
 <meta content="summary_large_image" property="twitter:card"/>
@@ -33,7 +41,7 @@
     </style>
 <link href="public/subway_logo.png" rel="shortcut icon" sizes="32x32" type="icon/png"/>
 <link data-tag="font" href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap" rel="stylesheet"/>
-</meta></head>
+</head>
 <body>
 <link href="./style.css" rel="stylesheet"/>
 <div>
@@ -74,61 +82,61 @@
 <div class="landing-page-cards-container">
 <span class="landing-page-text">Subs</span>
 <div class="place-card-container place-card-root-class-name4">
-<img alt="image" class="place-card-image" id="sub1" src="../static/images/1_The_Philly.jpeg"/>
+<img alt="image" class="place-card-image" id="sub1" src="images/15_Titan_Turkey.jpeg"/>
 <div class="place-card-container1">
-<span class="place-card-text"><span id="title1">#1 The Philly</span></span>
+<span class="place-card-text"><span id="title1">#15 Titan Turkey</span></span>
 <span class="place-card-text1">
-<span id="desc1">steak, 2x American Cheese, Green Peppers, Red Onions, Toasted, and Mayo</span>
+<span id="desc1">33% MORE* turkey, 2x provolone, lettuce, tomatoes, onions, and mayo</span>
 </span>
 <div class="outline-button-container">
 <button class="outline-button-button button Button">
-<span id="cost1">$6.69</span>
+<span id="cost1">$6.79</span>
 </button>
 </div>
 </div>
 </div>
 <div class="place-card-container place-card-root-class-name5">
-<img alt="image" class="place-card-image" id="sub2" src="../static/images/33_Teriyaki_Blitz.jpeg"/>
+<img alt="image" class="place-card-image" id="sub2" src="images/12_Turkey_Cali_Club.jpeg"/>
 <div class="place-card-container1">
-<span class="place-card-text"><span id="title2">#33 Teriyaki Blitz</span></span>
+<span class="place-card-text"><span id="title2">#12 Turkey Cali Club</span></span>
 <span class="place-card-text1">
-<span id="desc2">steak, 2x American Cheese, Green Peppers, Red Onions, Toasted, and Sweet Onion Teriyaki sauce</span>
+<span id="desc2">Oven-roasted turkey, crisp bacon, BelGioioso® Fresh Mozzarella, and smashed Hass avocado. Topped with spinach, tomatoes, red onions, and mayo</span>
 </span>
 <div class="outline-button-container">
 <button class="outline-button-button button Button">
-<span id="cost2">$6.69</span>
+<span id="cost2">$10.39</span>
 </button>
 </div>
 </div>
 </div>
 <div class="place-card-container place-card-root-class-name2">
-<img alt="image" class="place-card-image" id="sub3" src="../static/images/2_The_Outlaw.jpeg"/>
+<img alt="image" class="place-card-image" id="sub3" src="images/23_The_Hotshot_Italiano.jpeg"/>
 <div class="place-card-container1">
 <span class="place-card-text">
-<span id="title3">#2 The Outlaw</span>
+<span id="title3">#23 The Hotshot Italiano</span>
 </span>
 <span class="place-card-text1">
-<span id="desc3">steak, 2x pepperjack cheese, green peppers, red onions, baja chiptole sauce, Toasted</span>
+<span id="desc3">Black Forest ham, Genoa salami, pepperoni, and our NEW capicola on fresh-baked Artisan Italian bread with provolone cheese, lettuce, tomatoes, red onions, and banana peppers</span>
 </span>
 <div class="outline-button-container">
 <button class="outline-button-button button Button">
-<span id="cost3">$6.69</span>
+<span id="cost3">$6.19</span>
 </button>
 </div>
 </div>
 </div>
 <div class="place-card-container place-card-root-class-name6">
-<img alt="image" class="place-card-image" id="sub4" src="../static/images/sub1.jpeg"/>
+<img alt="image" class="place-card-image" id="sub4" src="images/16_All-Pro_Sweet_Onion_Teriyaki.jpeg"/>
 <div class="place-card-container1">
 <span class="place-card-text">
-<span id="title4">Garlic roasty beef</span>
+<span id="title4">#16 All-Pro Sweet Onion Teriyaki</span>
 </span>
 <span class="place-card-text1">
-<span id="desc4">Turkey, ham, Toasted</span>
+<span id="desc4">toasted Hearty Multigrain bread, tender grilled chicken strips marinated in our Sweet Onion Teriyaki sauce, American cheese, lettuce, tomatoes, and red onions.</span>
 </span>
 <div class="outline-button-container">
 <button class="outline-button-button button Button">
-<span id="cost4">$9.98</span>
+<span id="cost4">$5.99</span>
 </button>
 </div>
 </div>

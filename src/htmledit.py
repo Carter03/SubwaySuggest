@@ -2,7 +2,7 @@ from bs4 import BeautifulSoup as bs
 import pandas as pd
 
 class Editor():
-    def __init__(self, htmlpath='utils/templates/index.html', subpath='../static/images/', excelpath=r'..\data\Subdata.xlsx'): # subpath = '../static/images/
+    def __init__(self, htmlpath='utils/index.html', subpath='images/', excelpath=r'..\data\Subdata.xlsx'): # subpath = '../static/images/
         self.indexPath = htmlpath
         self.subpath = subpath
         self.soup = bs(open(self.indexPath), 'html.parser')
@@ -34,10 +34,15 @@ class Editor():
     def DataFromName(self, subName):
         result = self.subDataExcel.isin([subName])
         seriesObj = result.any()
-        col = seriesObj[seriesObj == True].index[0]
-        row = result[col][result[col] == True].index[0]
+        try:
+            col = seriesObj[seriesObj == True].index[0]
+            row = result[col][result[col] == True].index[0]
+            return [str(i) for i in list(self.subDataExcel.loc[row])]
+        except:
+            print("ERROR: " + subName + " WAS NOT FOUND IN Subdata.xlsx")
+        return [None, None, None]
 
-        return [str(i) for i in list(self.subDataExcel.loc[row])]
+        
 
 
 if __name__ == '__main__':

@@ -8,7 +8,7 @@ import sandwichDNN
 import camera
 import htmledit
 import random
-from utils import guiLaunch
+import guiLaunch
 
 def ReformData(data):
     genderGroups, ageGroups = datamanager.DataManager().GetGroups()
@@ -33,7 +33,6 @@ analysisPeriod = 3.0
 analysisData = []
 startTime = time.time()
 freqDataPoints = None
-
 t1.start()
 while cv2.waitKey(1) < 0:
     frame, data = camStream.CalculateFrame()
@@ -46,25 +45,40 @@ while cv2.waitKey(1) < 0:
         startTime = time.time()
         analysisData = []
     
-        if not freqDataPoints == None:
-            print(freqDataPoints)
-            for person in freqDataPoints:
+        if not freqDataPoints == None:            
+            responseNums = []
+            if pointsLen := len(freqDataPoints) == 1:
+                responseNums = [4]
+            elif pointsLen == 2:
+                responseNums = [2, 2]
+            elif pointsLen == 3:
+                responseNums = [2, 1, 1]
+            else:
+                responseNums = [1, 1, 1, 1]
+            
+            usedSubs = []
+            for person, responseNum in zip(freqDataPoints, responseNums):
                 reformedData = ReformData(person)
-                predicts = model.Predict(reformedData, 3)
-                # print(predicts)
-                if random.randint(0,1) == 0: predicts = ['#17 Garlic Roast Beef', '#30 The Beast', '#1 The Philly']
-                else: predicts = ['#1 The Philly', '#33 Teriyaki Blitz', '#2 The Outlaw']
-                print(predicts)
-                predictsData = []
-                for predict in predicts:
-                    subData = htmleditor.DataFromName(predict)
-                    predictsData.append(subData)
+                predicts = model.Predict(reformedData, 5)
                 
-                htmleditor.ReplaceSubs(predictsData)
+                numAdded = 0
+                for i in range(5):
+                    if not predicts[i] in usedSubs and numAdded < responseNum:
+                        usedSubs.append(predicts[i])
+                        numAdded += 1
+            print(usedSubs)
+            
+            predictsData = []
+            for sub in usedSubs:
+                subData = htmleditor.DataFromName(sub)
+                predictsData.append(subData)
+                
+            htmleditor.ReplaceSubs(predictsData)
+            guiLaunch.Reload()
+                
                 
                 
 
 
 camStream.cam.release()
 cv2.destroyAllWindows()
-# guiLaunch.CloseWeb()
