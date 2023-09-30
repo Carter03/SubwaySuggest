@@ -30,14 +30,16 @@ t1 = threading.Thread(target=guiLaunch.OpenWeb)
 htmleditor = htmledit.Editor()
 
 camStream = camera.Camera()
-analysisPeriod = 3.0
+analysisPeriod = 5.0
 analysisData = []
 startTime = time.time()
 freqDataPoints = None
+
 t1.start()
+
 while cv2.waitKey(1) < 0:
     frame, data = camStream.CalculateFrame()
-    cv2.imshow('cam display', frame)
+    cv2.imshow('Employee Display', frame)
 
     if (time.time() - startTime) < analysisPeriod:
         analysisData.append(str(data))
@@ -74,17 +76,14 @@ while cv2.waitKey(1) < 0:
                 predictsData.append(subData)
                 
             htmleditor.ReplaceSubs(predictsData)
-
             dealsData = deals.GetDeals(len(freqDataPoints))
+
+            random.seed(str(freqDataPoints))
             condDeals = random.sample(dealsData, 3)
 
             htmleditor.ReplaceDeals(condDeals)
 
             guiLaunch.Reload()
                 
-                
-                
-
-
 camStream.cam.release()
 cv2.destroyAllWindows()

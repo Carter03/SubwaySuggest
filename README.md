@@ -5,9 +5,10 @@ The purpose of this application is to reduce store lines and increase efficiency
 
 
 
-## Documentation
+## Temporary Instructions/Docs
 
 With necessary modules installed, run main.py
+This will open a CV2 camera feed and an HTML page to be shown to customers. These windows should be places on seperate monitors: one for customer side, one for employee/management side.
 
 SandwichPrefsData.xlsx contains age and gender sub preferences based on collected data. This may be modified per location and to add more data points.
 

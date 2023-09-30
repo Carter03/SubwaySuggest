@@ -1,5 +1,5 @@
-cv2
-eel
+opencv-python==4.8.1.78
+eel==0.16.0
 pandas
 numpy
-keras
+keras==2.14.0
