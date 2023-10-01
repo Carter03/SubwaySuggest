@@ -25,6 +25,7 @@ def ReformData(data):
 model = sandwichDNN.SandwichModel()
 model.Fit()
 
+guiLaunch.Init()
 t1 = threading.Thread(target=guiLaunch.OpenWeb)
 
 htmleditor = htmledit.Editor()

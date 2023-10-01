@@ -20,7 +20,8 @@
 
 import eel
 
-eel.init('utils')
+def Init():
+    eel.init('utils')
 
 def OpenWeb():
     eel.start('index.html')
