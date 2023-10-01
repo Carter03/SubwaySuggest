@@ -1,3 +1,15 @@
+import eel
+
+def Init():
+    eel.init('utils')
+
+def OpenWeb():
+    eel.start('index.html')
+
+def Reload():
+    eel.reload()
+
+
 # from flask import request, Flask, render_template, redirect
 # import signal
 # import os
@@ -17,14 +29,3 @@
 # @app.route('/stopServer', methods=['GET'])
 # def CloseWeb():
 #     os.kill(os.getpid(), signal.SIGINT)
-
-import eel
-
-def Init():
-    eel.init('utils')
-
-def OpenWeb():
-    eel.start('index.html')
-
-def Reload():
-    eel.reload()
