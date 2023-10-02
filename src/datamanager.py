@@ -9,10 +9,11 @@ class DataManager():
         self.dataPath = r'..\data\SandwichPrefsData.xlsx'
 
         self.df = pd.read_excel(self.dataPath)
-        self.data = self.df.to_numpy().copy()[:, 6:]
+        self.data = self.df.to_numpy().copy()[:, 2:]
+        # print(self.data)
 
         def GetSandMappings():
-            factors = pd.factorize([i for list in [i.split(';') for i in self.data[:, 0]] for i in list if i])[1] # retrieve sandwich names from string, get unique IDs for them
+            factors = pd.factorize([i for list in [i.split(';') for i in self.data[:, 2]] for i in list if i])[1] # retrieve sandwich names from string, get unique IDs for them
             mappings = dict(zip(factors, range(len(factors))))
 
             return mappings
@@ -33,13 +34,14 @@ class DataManager():
     
     def GetData(self):
         modelData = list(map(self.ApplyMappings, self.data.tolist()))
+        print(modelData)
 
         finalDataX = [] # list of all sandwich encoded by ID
         finalDataY = [] # list of all age and gender encoded by ID
 
         for entry in modelData:
-            for sandID in entry[0]:
-                finalDataX.append([entry[1], entry[2]])
+            for sandID in entry[2]:
+                finalDataX.append([entry[0], entry[1]])
                 finalDataY.append(sandID)
 
         return (self.sandMappings, self.ageMappings, self.genderMappings), np.array(finalDataX).astype(np.float16), np.array(finalDataY).astype(np.float16)

@@ -10,6 +10,7 @@ import htmledit
 import random
 import guiLaunch
 import deals
+import cashier
 
 def ReformData(data):
     genderGroups, ageGroups = datamanager.DataManager().GetGroups()
@@ -25,8 +26,13 @@ def ReformData(data):
 model = sandwichDNN.SandwichModel()
 model.Fit()
 
+# time.sleep(2)
+
+# log = cashier.Logger(r'..\data\SandwichPrefsData.xlsx', r'..\data\Subdata.xlsx', datamanager.DataManager().GetGroups()[1])
+
 guiLaunch.Init()
 t1 = threading.Thread(target=guiLaunch.OpenWeb)
+# t2 = threading.Thread(target=log.ContinuouslyLog)
 
 htmleditor = htmledit.Editor()
 
@@ -37,6 +43,7 @@ startTime = time.time()
 freqDataPoints = None
 
 t1.start()
+# t2.start()
 
 while cv2.waitKey(1) < 0:
     frame, data = camStream.CalculateFrame()
