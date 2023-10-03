@@ -34,7 +34,7 @@ class DataManager():
     
     def GetData(self):
         modelData = list(map(self.ApplyMappings, self.data.tolist()))
-        print(modelData)
+        # print(modelData)
 
         finalDataX = [] # list of all sandwich encoded by ID
         finalDataY = [] # list of all age and gender encoded by ID

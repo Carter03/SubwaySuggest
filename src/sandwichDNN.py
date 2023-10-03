@@ -11,8 +11,8 @@ class SandwichModel:
     def Fit(self):
         self.model.add(keras.layers.Flatten(input_shape = (2,)))
 
-        self.model.add(keras.layers.Dense(128, activation='relu'))
-        self.model.add(keras.layers.Dense(128, activation='relu'))
+        self.model.add(keras.layers.Dense(64, activation='relu'))
+        self.model.add(keras.layers.Dense(64, activation='relu'))
 
         self.model.add(keras.layers.Dense(self.y_train.max() + 1, activation='softmax'))
 
@@ -21,7 +21,7 @@ class SandwichModel:
         self.model.fit([self.x_train], self.y_cat_train, epochs=25, verbose=0)
 
     def Predict(self, input : list, predNum : int):
-        ids = self.model.predict([input]).argsort()[0][-predNum:][::-1] # top predNum predictions
+        ids = self.model.predict([input], verbose=0).argsort()[0][-predNum:][::-1] # top predNum predictions
         return [list(self.maps[0].keys())[list(self.maps[0].values()).index(i)] for i in ids]
 
 if __name__ == '__main__':

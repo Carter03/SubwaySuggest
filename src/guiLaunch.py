@@ -9,6 +9,11 @@ def OpenWeb():
 def Reload():
     eel.reload()
 
+def CloseWeb():
+    eel.kill()
+
+# OpenWeb()
+# CloseWeb()
 
 # from flask import request, Flask, render_template, redirect
 # import signal
