@@ -35,7 +35,6 @@ class Camera:
 
     # Write a function that returns coordinates of face in image parameter:
     def find_faces(self, dnn, dframe, confidence=0.9):
-        
         # Create a local copy of the dframe and get height and width
         dnn_frame = dframe.copy()
         frame_height = dnn_frame.shape[0]
@@ -99,22 +98,23 @@ class Camera:
                 face = frame[max(0, face_box[1] - self.padding) : min(face_box[3] + self.padding, frame.shape[0] - 1),
                             max(0, face_box[0] - self.padding) : min(face_box[2] + self.padding, frame.shape[1] - 1)]
                 
-                blob = cv2.dnn.blobFromImage(face, 1.0, (227, 227), self.MODEL_MEAN_VALUES, swapRB=False)
+                if face.size:
+                    blob = cv2.dnn.blobFromImage(face, 1.0, (227, 227), self.MODEL_MEAN_VALUES, swapRB=False)
 
-                # Pass face object to gender dnn and store result
-                self.gen_dnn.setInput(blob)
-                gen_preds = self.gen_dnn.forward()
-                gender = self.gender_groups[gen_preds[0].argmax()]
+                    # Pass face object to gender dnn and store result
+                    self.gen_dnn.setInput(blob)
+                    gen_preds = self.gen_dnn.forward()
+                    gender = self.gender_groups[gen_preds[0].argmax()]
 
-                # Pass face object to age dnn and store result
-                self.age_dnn.setInput(blob)
-                age_preds = self.age_dnn.forward()
-                age = self.age_groups[age_preds[0].argmax()]
+                    # Pass face object to age dnn and store result
+                    self.age_dnn.setInput(blob)
+                    age_preds = self.age_dnn.forward()
+                    age = self.age_groups[age_preds[0].argmax()]
 
-                # Draw bounding box around face
-                # Write age and gender above bounding box using cv2 functions
-                cv2.putText(dnn_frame, f'{gender}, {age}', (face_box[0], face_box[1] - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 0, 255), 2, cv2.LINE_AA)
-                peopleData.append((age, gender))
+                    # Draw bounding box around face
+                    # Write age and gender above bounding box using cv2 functions
+                    cv2.putText(dnn_frame, f'{gender}, {age}', (face_box[0], face_box[1] - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 0, 255), 2, cv2.LINE_AA)
+                    peopleData.append((age, gender))
 
         return dnn_frame, peopleData
             

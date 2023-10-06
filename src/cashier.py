@@ -34,21 +34,25 @@ class Logger:
         
         ageInput = int(input('What was the customer\'s age?  '))
 
-        closestAge = 1000
-        closestGroup = None
-        for lower, upper in self.ageGroups:
-            if abs(ageInput - lower) < closestAge:
-                closestAge = abs(ageInput - lower)
-                closestGroup = (lower, upper)
-            if abs(ageInput - upper) < closestAge:
-                closestAge = abs(ageInput - upper)
-                closestGroup = (lower, upper)
-        print(closestGroup, end='\n\n')
-
+        try:
+            closestAge = 1000
+            closestGroup = None
+            for lower, upper in self.ageGroups:
+                if abs(ageInput - lower) < closestAge:
+                    closestAge = abs(ageInput - lower)
+                    closestGroup = (lower, upper)
+                if abs(ageInput - upper) < closestAge:
+                    closestAge = abs(ageInput - upper)
+                    closestGroup = (lower, upper)
+            print(closestGroup, end='\n\n')
+        except:
+            print("Please enter a valid age.")
+            return
+        
         genderInput = input('What was the customer\'s gender? ')
 
         closestGender = ''
-        if 'f' in genderInput.lower() or genderInput.lower() == 'girl':
+        if 'f' in genderInput.lower() or genderInput.lower() == 'girl' or 'wo' in genderInput.lower():
             closestGender = 'Female'
         else:
             closestGender = 'Male'
