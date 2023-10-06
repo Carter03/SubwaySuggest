@@ -1,5 +1,6 @@
 import cv2
 import numpy as np
+import sys
 
 class Camera:
     def __init__(self, height=720, width=1080):
@@ -28,6 +29,9 @@ class Camera:
         self.padding = 20
 
         self.cam = cv2.VideoCapture(0, cv2.CAP_DSHOW)
+        # if self.cam is None or not self.cam.isOpened():
+        #     raise Exception("Camera cannot be accessed")
+
 
     # Write a function that returns coordinates of face in image parameter:
     def find_faces(self, dnn, dframe, confidence=0.9):
@@ -60,12 +64,24 @@ class Camera:
                 cv2.rectangle(dnn_frame, (x1, y1), (x2, y2), (255, 0, 0), int(round(frame_height / 150)), 8)
 
         return dnn_frame, face_boxes
+    
+    def GetSharpness(self, img):
+        img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+        lap = cv2.Laplacian(img, cv2.CV_16S)
+        mean, stddev = cv2.meanStdDev(lap)
+        return stddev[0,0]
 
 
     def CalculateFrame(self):
-        
         # Get a video frame from the camera
         ready, frame = self.cam.read()
+        if not ready or not self.cam.isOpened():
+            print("\n\nCamera Disconnected During Application Run")
+            sys.exit(1)
+        
+        if self.GetSharpness(frame) > 100:
+            print("\n\nImage Sharpness Detected Too High. Possible Camera Error. Ensure No Other Applications Are Using The Camera")
+            sys.exit(1)
 
         # Flip the frame using opencv (cv2.flip(video, 1))
         frame = cv2.flip(frame, 1)

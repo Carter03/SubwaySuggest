@@ -32,11 +32,13 @@ guiLaunch.Init()
 
 t1 = threading.Thread(target=guiLaunch.OpenWeb)
 t2 = threading.Thread(target=log.ContinuouslyLog)
+t1.setDaemon(True)
+t2.setDaemon(True)
 
 htmleditor = htmledit.Editor()
 
 camStream = camera.Camera()
-analysisPeriod = 5.0
+analysisPeriod = 3.5
 analysisData = []
 startTime = time.time()
 freqDataPoints = None
@@ -58,37 +60,46 @@ while cv2.waitKey(1) < 0:
     
         if not freqDataPoints == None:            
             responseNums = []
-            if pointsLen := len(freqDataPoints) == 1:
+            if (pointsLen := len(freqDataPoints)) == 0:
+                responseNums = None
+            elif pointsLen == 1:
                 responseNums = [4]
             elif pointsLen == 2:
                 responseNums = [2, 2]
             elif pointsLen == 3:
                 responseNums = [2, 1, 1]
-            else:
+            elif pointsLen == 4:
                 responseNums = [1, 1, 1, 1]
-            
-            usedSubs = []
-            for person, responseNum in zip(freqDataPoints, responseNums):
-                reformedData = ReformData(person)
-                predicts = model.Predict(reformedData, 5)
+            else:
+                # more than four faces
+                responseNums = [1, 1, 1, 1]
+
+            if responseNums != None:
+                usedSubs = []
+                for person, responseNum in zip(freqDataPoints, responseNums):
+                    reformedData = ReformData(person)
+                    predicts = model.Predict(reformedData, 5)
+                    
+                    numAdded = 0
+                    for i in range(5):
+                        if not predicts[i] in usedSubs and numAdded < responseNum:
+                            usedSubs.append(predicts[i])
+                            numAdded += 1
                 
-                numAdded = 0
-                for i in range(5):
-                    if not predicts[i] in usedSubs and numAdded < responseNum:
-                        usedSubs.append(predicts[i])
-                        numAdded += 1
-            
-            predictsData = []
-            for sub in usedSubs:
-                subData = htmleditor.DataFromName(sub)
-                predictsData.append(subData)
+                predictsData = []
+                for sub in usedSubs:
+                    subData = htmleditor.DataFromName(sub)
+                    predictsData.append(subData)
+
+                dealsData = deals.GetDeals(len(responseNums))
+            else:
+                predictsData = [['Recommended Sub', 'A sub customized for you will be shown here.', '0.00'] for i in range(4)]
+                dealsData = deals.GetDeals(5)
                 
             htmleditor.ReplaceSubs(predictsData)
-            dealsData = deals.GetDeals(len(freqDataPoints))
 
             random.seed(str(freqDataPoints))
             condDeals = random.sample(dealsData, 3)
-
             htmleditor.ReplaceDeals(condDeals)
 
             guiLaunch.Reload()

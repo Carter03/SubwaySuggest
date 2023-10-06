@@ -25,6 +25,9 @@ class Logger:
         elif subInput.startswith(r'#'):
             subName = [sub for sub in subNames if f'{subInput.split()[0]} ' in sub][0]
             print(subName, end='\n\n')
+        elif subInput[0].isnumeric():
+            subName = [sub for sub in subNames if f'#{subInput.split()[0]} ' in sub][0]
+            print(subName, end='\n\n')
         else:
             print('Sub not found...')
             return
@@ -57,13 +60,13 @@ class Logger:
         group = f'{ageGroup[0]} - {ageGroup[1]}'
         newRow = pd.DataFrame(
                             {
-                                'Time': datetime.now().strftime('%m/%d/%Y %H:%M:%S'), 
+                                'Time': str(datetime.now().strftime('%m/%d/%Y %H:%M:%S')), 
                                 'Age': str(group),
                                 'Gender': closestGender,
                                 'Subs': f'{subName};'
                             }, index=[-1])
         
-        print(newRow)
+        print(newRow, end='\n\n')
 
         
         df_excel = pd.read_excel(self.prefsPath, sheet_name='Sheet1')

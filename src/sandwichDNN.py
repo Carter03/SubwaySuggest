@@ -28,5 +28,13 @@ if __name__ == '__main__':
     model = SandwichModel()
     model.Fit()
 
-    print(ids := model.Predict([4, 0], 3))
-    print([list(model.maps[0].keys())[list(model.maps[0].values()).index(i)] for i in ids])
+    for i in range(5):
+        ids = model.Predict([i, 0], 3)
+        print(f'{i} age, male')
+        # print(list(model.maps[0]))
+        print([list(model.maps[0].keys())[list(model.maps[0].keys()).index(i)] for i in ids])
+    for i in range(5):
+        ids = model.Predict([i, 1], 3)
+        print(f'{i} age, female')
+        # print(list(model.maps[0]))
+        print([list(model.maps[0].keys())[list(model.maps[0].keys()).index(i)] for i in ids])
